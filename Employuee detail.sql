@@ -1,33 +1,25 @@
--- ==========================================
 -- Create Database
--- ==========================================
-CREATE DATABASE IF NOT EXISTS company_sql;
+CREATE DATABASE company;
 
 -- Use Database
-USE company_sql;
+USE company_ds;
 
--- ==========================================
 -- Create Employees Table
--- ==========================================
-CREATE TABLE IF NOT EXISTS Employees1 (
+CREATE TABLE Employees1 (
     EmployeeID INT PRIMARY KEY,
     Name VARCHAR(50),
     Department VARCHAR(50),
     Salary DECIMAL(10,2)
 );
 
--- ==========================================
 -- Create Departments Table
--- ==========================================
-CREATE TABLE IF NOT EXISTS Departments1 (
+CREATE TABLE Departments1 (
     DepartmentID INT PRIMARY KEY,
     DepartmentName VARCHAR(50),
     ManagerName VARCHAR(50)
 );
 
--- ==========================================
 -- Insert Data into Employees
--- ==========================================
 INSERT INTO Employees1 (EmployeeID, Name, Department, Salary)
 VALUES
 (101, 'Ali', 'IT', 75000.00),
@@ -35,73 +27,78 @@ VALUES
 (103, 'Sara', 'Finance', 85000.00),
 (104, 'Ayesha', 'Marketing', 70000.00),
 (105, 'Usman', 'IT', 80000.00);
+SELECT * FROM Employees1;
+TRUNCATE TABLE Employees1;
 
--- ==========================================
 -- Insert Data into Departments
--- ==========================================
-INSERT INTO Departments1 (DepartmentID, DepartmentName, ManagerName)
+INSERT INTO Employees1 (EmployeeID, Name, Department, Salary)
 VALUES
-(1, 'IT', 'Bilal'),
-(2, 'HR', 'Fatima'),
-(3, 'Finance', 'Hassan'),
-(4, 'Marketing', 'Zain');
-
--- ==========================================
--- Display Tables
--- ==========================================
+(101, 'Ali', 'IT', 75000.00),
+(102, 'Ahmed', 'HR', 60000.00),
+(103, 'Sara', 'Finance', 85000.00),
+(104, 'Ayesha', 'Marketing', 70000.00),
+(105, 'Usman', 'IT', 80000.00);
+-- Display Employees Table
 SELECT * FROM Employees1;
 
+-- Display Departments Table
 SELECT * FROM Departments1;
-
--- ==========================================
--- WHERE Clause
--- ==========================================
-
--- IT Department Employees
 SELECT *
 FROM Employees1
 WHERE Department = 'IT';
 
--- Salary Greater Than 70000
+SELECT DATABASE();
+
 SELECT *
 FROM Employees1
 WHERE Salary > 70000;
 
--- ==========================================
--- GROUP BY
--- ==========================================
-
-SELECT Department, COUNT(*) AS Total_Employees
+SELECT Department, COUNT(*) AS Total_Employees1
 FROM Employees1
 GROUP BY Department;
 
--- ==========================================
--- GROUP BY + HAVING
--- ==========================================
-
-SELECT Department, COUNT(*) AS Total_Employees
+SELECT *
 FROM Employees1
-GROUP BY Department
-HAVING COUNT(*) > 1;
+ORDER BY Salary;
 
--- ==========================================
--- Average Salary by Department
--- ==========================================
-
-SELECT Department, AVG(Salary) AS Average_Salary
+SELECT *
 FROM Employees1
-GROUP BY Department;
+ORDER BY Salary DESC;
 
--- ==========================================
--- Total Salary by Department
--- ==========================================
-
-SELECT Department, SUM(Salary) AS Total_Salary
+SELECT *
 FROM Employees1
-GROUP BY Department;
+ORDER BY Name;
 
--- ==========================================
--- Current Database
--- ==========================================
+SELECT DISTINCT Department
+FROM Employees1;
 
-SELECT DATABASE();
+SELECT *
+FROM Employees1
+WHERE Name LIKE 'A%';
+
+SELECT *
+FROM Employees1
+WHERE Name LIKE '%a';
+
+SELECT *
+FROM Employees1
+WHERE Name LIKE '%ar%';
+
+SELECT *
+FROM Employees1
+WHERE Salary BETWEEN 70000 AND 80000;
+
+
+SELECT *
+FROM Employees1
+WHERE Department='IT'
+AND Salary>75000;
+
+SELECT *
+FROM Employees1
+WHERE Department='HR'
+OR Department='Finance';
+
+SELECT *
+FROM Employees1
+WHERE NOT Department='IT';
